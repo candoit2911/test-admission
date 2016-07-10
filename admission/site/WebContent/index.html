@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Admission Example</title>
+    
+    <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		
+		
+</head>
+<body >
+    <!-- Navigation bar  -->
+   <nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">Student Admission</a>
+	    </div>
+	    <ul class="nav navbar-nav">
+	      <li class="active"><a href="#">Home</a></li>      
+	    </ul>
+	  </div>
+	</nav>
+	<div class="container" ng-app="myApp" ng-controller="myCtrl">
+	<form class="form-inline" role="form" ng-hide=showItems>
+	  <div class="form-group">
+	    <label for="rollNumber">Enter Student RollNumber:</label>
+	    <input type="number" value=1 class="form-control" ng-model="rollNumber">
+	  </div>	  
+	  <button ng-click="getStudent()" class="btn btn-default">SEARCH</button>
+	</form>	
+      
+    <!-- div id="FindStudent" ng-hide=showItems>
+     <h3>Enter Student RollNumber:</h3>
+      <input value="1" type="number" ng-model="rollNumber">
+      <button ng-click="getStudent()">Search</button>
+    </div -->
+    
+		<div id="AddItem" ng-show=showItems>
+		     <h2>Welcome {{student.name}}!!</h2> 
+		     <form class="form-inline" role="form">
+			    <div class="form-group">
+			      <label for="amount">Quantity:</label>
+			      <input class="form-control" value="1" type="number" ng-model="itemAmount">
+			    </div>
+			     <div class="form-group">
+            <label for="item">Item:</label>
+            <select class="form-control" ng-model="selectedItem" ng-options="item.description for item in items"></select> 
+          </div>
+          <button ng-click="addItem()" class="btn btn-default">Add</button>
+		     </form>        
+    </div>    
+    <br><br>
+    <div id="CheckedList" ng-show="showItems||showOrder">          
+          <table class="table table-striped">
+          <tr><td>Selected Items</td><td></td><td></td><td></td></tr>
+          <tr><td>Quantity</td><td>Item</td><td>Price</td><td ng-show=showItems>Remove</td></tr>
+            <tr ng-repeat="item in selectedItems" class="item-checked">
+                <td> {{item.quantity}}</td><td>{{item.description}}</td><td>{{item.quantity * item.price}}</td>                                      
+                <td><button ng-show=showItems ng-click="removeItem($index)" class="btn btn-default">Remove item</button></td>
+            </tr>
+        </table>
+        <button ng-click="processOrder()" ng-show="selectedItems.length > 0 && !showOrder">Submit Order</button>
+    </div>
+    <br><br>
+    <div id="Receipt" ng-show=showOrder>          
+          <table class="table table-striped">
+          <tr><td>Receipt</td><td></td><td></td></tr>          
+            <tr>
+               <td>Name: {{student.name}}</td><td></td>
+               <td>Management Student: {{student.managementStudent? 'Yes':'No'}}</td>
+            </tr>
+            <tr><td>Quantity</td><td>Item</td><td>Price</td></tr>
+            <tr ng-repeat="item in orderResponse.orderedItem">
+                <td> {{item.quantity}}</td><td> {{item.description}}</td><td>{{item.price}}</td>   
+            </tr>
+            <tr><td>Total Surcharge</td><td> {{orderResponse.totalSurcharge}}</td></tr>
+            <tr><td>Total Cost</td> <td>{{orderResponse.totalCost}}</td></tr>
+        </table>
+    </div>
+    <!-- end: LIST OF ITEMS -->
+  </div>
+
+</div>
+<!-- jQuery library -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>  
+</body>
+</html>
